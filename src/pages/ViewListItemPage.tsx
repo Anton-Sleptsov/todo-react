@@ -1,12 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import ToDo from "../models/ToDoItem";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
-interface ComponentProps {
-  todos: ToDo[];
-}
-
-export const ItemPage = ({ todos }: ComponentProps) => {
+export const ViewListItemPage = () => {
+  const todos = useSelector((state: RootState) => state.todoList.todos);
   const { id } = useParams();
   const navigate = useNavigate();
   const [todo, setTodo] = useState<ToDo>();
