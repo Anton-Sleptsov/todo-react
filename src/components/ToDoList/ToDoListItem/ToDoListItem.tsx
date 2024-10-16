@@ -19,10 +19,12 @@ export const ToDoListItem = (props: {
       <ToDoItemText>{props.item.text}</ToDoItemText>
       <ToDoItemControls>
         <ToDoItemControl
+          isCheck={false}
           icon={trashIcon}
           onClick={() => props.deleteToDo(props.item.id)}
         />
         <ToDoItemControl
+          isCheck={props.item.isDone ? true : false}
           icon={props.item.isDone ? checkIcon : uncheckIcon}
           onClick={() => props.updateStatusToDo(props.item.id)}
         />

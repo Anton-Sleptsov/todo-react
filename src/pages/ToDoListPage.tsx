@@ -6,7 +6,7 @@ import {
   createAction,
   deleteAction,
   updateStatusAction,
-} from "../feature/ToDoList";
+} from "../feature/todoList";
 
 export const ToDoListPage = () => {
   const todoList = useSelector((store: RootState) => store.todoList.todos);
