@@ -1,5 +1,13 @@
-import "./ToDoListItem.scss";
 import ToDo from "../../../models/ToDoItem";
+import {
+  ToDoItemControl,
+  ToDoItemControls,
+  ToDoItemText,
+  ToDoItemWrapper,
+} from "./ToDoListItem.styled";
+import checkIcon from "../../../assets/images/check.png";
+import uncheckIcon from "../../../assets/images/uncheck.png";
+import trashIcon from "../../../assets/images/trash.png";
 
 export const ToDoListItem = (props: {
   item: ToDo;
@@ -7,18 +15,18 @@ export const ToDoListItem = (props: {
   deleteToDo: Function;
 }) => {
   return (
-    <li className="todo-list-item__wrapper">
-      <span>{props.item.text}</span>
-      <div className="todo-list-item__buttons">
-        <button
-          className="btn-trash"
+    <ToDoItemWrapper>
+      <ToDoItemText>{props.item.text}</ToDoItemText>
+      <ToDoItemControls>
+        <ToDoItemControl
+          icon={trashIcon}
           onClick={() => props.deleteToDo(props.item.id)}
-        ></button>
-        <button
-          className={props.item.isDone ? "btn-check" : "btn-uncheck"}
+        />
+        <ToDoItemControl
+          icon={props.item.isDone ? checkIcon : uncheckIcon}
           onClick={() => props.updateStatusToDo(props.item.id)}
-        ></button>
-      </div>
-    </li>
+        />
+      </ToDoItemControls>
+    </ToDoItemWrapper>
   );
 };
