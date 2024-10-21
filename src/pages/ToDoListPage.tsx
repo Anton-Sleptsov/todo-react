@@ -1,27 +1,33 @@
 import { Form } from "../components/Form/Form";
 import { ToDoList } from "../components/ToDoList/ToDoList";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState, AppDispatch } from "../store";
 import {
-  createAction,
-  deleteAction,
-  updateStatusAction,
+  fetchAllToDos,
+  createToDoAsync,
+  deleteToDoAsync,
+  updateStatusToDoAsync, // Обновление статуса задачи
 } from "../feature/todoList";
+import { useEffect } from "react";
 
 export const ToDoListPage = () => {
   const todoList = useSelector((store: RootState) => store.todoList.todos);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchAllToDos());
+  }, [dispatch]);
 
   const createNewToDo = (text: string) => {
-    dispatch(createAction(text));
+    dispatch(createToDoAsync(text));
   };
 
   const updateStatusToDo = (toDoId: number) => {
-    dispatch(updateStatusAction(toDoId));
+    dispatch(updateStatusToDoAsync(toDoId)); // Локальное обновление статуса
   };
 
   const deleteToDo = (toDoId: number) => {
-    dispatch(deleteAction(toDoId));
+    dispatch(deleteToDoAsync(toDoId));
   };
 
   return (
@@ -29,7 +35,7 @@ export const ToDoListPage = () => {
       <Form createNewToDo={createNewToDo} />
       <ToDoList
         todos={todoList}
-        updateStatusToDo={updateStatusToDo}
+        updateStatusToDo={updateStatusToDo} // Передаем функцию обновления статуса
         deleteToDo={deleteToDo}
       />
     </>
